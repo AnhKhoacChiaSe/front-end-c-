@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Trường Lê Độ</title>
+    <link rel="stylesheet" href="1.css" />
+</head>
+<body>
+    <div id="header"></div>
+    <main class="container" id="main-content"></main>
+    <div id="footer"></div>
+
+    <script src="1.js"></script>
+    <script>
+        async function loadHTML(id, file) {
+            const res = await fetch(file);
+            const html = await res.text();
+            document.getElementById(id).innerHTML = html;
+        }
+
+        loadHTML("header", "components/header.html");
+        loadHTML("footer", "components/footer.html");
+
+        const sections = [
+            "home", "intro", "program", "activities",
+            "gallery", "news", "admission", "contact"
+        ];
+        sections.forEach(section => {
+            fetch(`components/${section}.html`)
+                .then(res => res.text())
+                .then(html => {
+                    document.getElementById("main-content").innerHTML += html;
+                });
+        });
+    </script>
+</body>
+</html>
+
